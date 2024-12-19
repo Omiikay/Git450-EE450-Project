@@ -76,16 +76,15 @@ The system also includes:
   - Deployment management 
   - File removal capabilities
 
-## ⚙️ Architecture
+## ⚙️ Network Architecture
 
-```
-                     TCP                 UDP
-Client (Member) <-----------> Main Server <------------> Authentication Server (A)
-                             (Server M)   <------------> Repository Server (R)
-Client (Guest)  <----------->            <------------> Deployment Server (D)
-                     TCP                      UDP
+![illustration of the network](https://github.com/user-attachments/assets/0b945f9c-e1e0-420f-8825-b0bb5d17a49f)
+
 
 Communication Flow:
+
+
+```
 - Clients ←→ Main Server (TCP)
 - Main Server ←→ Backend Servers (UDP)
 - Backend Servers maintain database for their specific functions:
