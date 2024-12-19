@@ -2,6 +2,31 @@
 
 A distributed file management system that implements core Git-like functionality with multiple server components and TCP/UDP socket communication.
 
+## 📁 Project Structure
+
+```
+/root
+├── bin/                    # Executable files
+├── data/                   # Configuration files
+│   ├── filenames.txt      # Repository metadata
+│   ├── members.txt        # User credentials
+│   └── original.txt       # Reference data
+├── src/                   # Source code
+│   ├── client.c          # Client implementation
+│   ├── serverM.c         # Main server
+│   ├── serverA.c         # Authentication server
+│   ├── serverR.c         # Repository server
+│   ├── serverD.c         # Deployment server
+│   ├── utils.c           # Utility functions
+│   └── utils.h           # Header file
+└── Makefile              # Build configuration
+```
+
+1. /src: all .c and .h files
+2. /data: txt inputs
+3. /bin: executable files after make all command will be in bin folder. please go to bin folder to test the project.
+
+
 ## 🌟 Features
 
 - **Multi-Server Architecture**: A distributed system with four specialized servers
@@ -103,7 +128,6 @@ The system follows a distributed architecture:
 1. Clone the repository
 ```bash
 git clone [repository-url]
-cd git450
 ```
 
 2. Compile the project
@@ -133,29 +157,6 @@ Available commands:
 - `deploy`: Deploy current repository
 - `remove <filename>`: Remove file from repository
 
-## 📁 Project Structure
-
-```
-/root
-├── bin/                    # Executable files
-├── data/                   # Configuration files
-│   ├── filenames.txt      # Repository metadata
-│   ├── members.txt        # User credentials
-│   └── original.txt       # Reference data
-├── src/                   # Source code
-│   ├── client.c          # Client implementation
-│   ├── serverM.c         # Main server
-│   ├── serverA.c         # Authentication server
-│   ├── serverR.c         # Repository server
-│   ├── serverD.c         # Deployment server
-│   ├── utils.c           # Utility functions
-│   └── utils.h           # Header file
-└── Makefile              # Build configuration
-```
-
-1. /src: all .c and .h files
-2. /data: txt inputs
-3. /bin: executable files after make all command will be in bin folder. please go to bin folder to test the project.
 
 ## 🔍 Notes
 - Server startup order matters: M -> A -> R -> D -> Client
