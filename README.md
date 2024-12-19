@@ -4,11 +4,41 @@ A distributed file management system that implements core Git-like functionality
 
 ## 🌟 Features
 
-- **Multi-Server Architecture**: Four interconnected servers handling different functionalities
-  - Main Server (M): Central coordinator managing all client-server communications
-  - Authentication Server (A): Handles user verification and session management  
-  - Repository Server (R): Manages file storage and versioning
-  - Deployment Server (D): Handles deployment operations
+- **Multi-Server Architecture**: A distributed system with four specialized servers
+  - **Main Server (M)**: 
+    - Core coordinator managing all communications between clients and other servers
+    - Acts as a central hub - all messages must pass through this server
+    - Handles both TCP (client communication) and UDP (inter-server communication)
+    - Maintains connection state and routes messages appropriately
+
+  - **Authentication Server (A)**:
+    - Manages user authentication and credential verification
+    - Maintains database of user login information
+    - Verifies client credentials sent from main server
+    - Supports both member and guest authentication modes
+
+  - **Repository Server (R)**:
+    - Manages file storage and repository operations
+    - Maintains database of all user files and metadata
+    - Handles file operations: lookup, push, and remove
+    - Processes requests forwarded from main server
+    
+  - **Deployment Server (D)**:
+    - Handles deployment operations for user repositories
+    - Stores deployment history and status
+    - Works in conjunction with Repository server for deployments
+    - Manages deployment requests forwarded from main server
+
+The system also includes:
+- **Client Implementation**:
+  - Provides user interface for all supported operations
+  - Communicates with main server via TCP
+  - Supports both member and guest user types
+  
+- **Utility Components**:
+  - Password encryption functionality
+  - Common data structures and helper functions
+  - Shared utility functions used across servers
 
 - **Secure Authentication**
   - Password encryption using cyclic offset algorithm
@@ -105,7 +135,7 @@ Available commands:
 
 ## 📁 Project Structure
 
-\`\`\`
+```
 /root
 ├── bin/                    # Executable files
 ├── data/                   # Configuration files
@@ -115,16 +145,21 @@ Available commands:
 ├── src/                   # Source code
 │   ├── client.c          # Client implementation
 │   ├── serverM.c         # Main server
-│   ├── serverA.c         # Authentication server 
+│   ├── serverA.c         # Authentication server
 │   ├── serverR.c         # Repository server
 │   ├── serverD.c         # Deployment server
 │   ├── utils.c           # Utility functions
 │   └── utils.h           # Header file
 └── Makefile              # Build configuration
-\`\`\`
+```
+
+1. /src: all .c and .h files
+2. /data: txt inputs
+3. /bin: executable files after make all command will be in bin folder. please go to bin folder to test the project.
 
 ## 🔍 Notes
 - Server startup order matters: M -> A -> R -> D -> Client
 - All servers maintain persistent connections
 - Uses TCP for client communications and UDP for inter-server messaging
 - Based on principles from Beej's Guide to Network Programming
+
